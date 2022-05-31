@@ -9,7 +9,7 @@ from flask import Flask, request, make_response
 from flask_expects_json import expects_json
 
 from accounts_service import AccountsManager
-from schema import create_loan_account_schema
+from schema import *
 
 banking_service = Flask(__name__)
 accounts_service = None
@@ -43,7 +43,21 @@ def create_loan_account():
     return make_response(json.dumps({'status': 'SUCCESS', 'data': response_data}), 201)
 
 
+@banking_service.route('/account/<account_id>/', methods=['POST'])
+@expects_json(create_loan_account_existing_schema)
+def create_loan_account_existing(account_id):
+    """
+    Initiate loan: with arguments for initial amount, annual interest rate, and start date.
+    :return:
+    """
+    request_data = request.data
+    request_data = json.loads(request_data)
+    response_data = accounts_service.create_account_existing(account_id, request_data)
+    return make_response(json.dumps({'status': 'SUCCESS', 'data': response_data}), 201)
+
+
 @banking_service.route('/account/<account_id>/', methods=['PUT'])
+@expects_json(make_payment_to_loan_account_schema)
 def make_payment_to_loan_account(account_id):
     """
     Add payment: with arguments for amount and date.

@@ -11,6 +11,15 @@ create_loan_account_schema = {
     },
     'required': ['firstName', 'lastName', 'emailId', 'loanAmount', 'interestRate', 'loanStartDate']
 }
+create_loan_account_existing_schema = {
+    'type': 'object',
+    'properties': {
+        'loanAmount': {'type': 'number'},
+        'interestRate': {'type': 'number'},
+        'loanStartDate': {'type': 'string', 'format': 'date'}
+    },
+    'required': ['loanAmount', 'interestRate', 'loanStartDate']
+}
 make_payment_to_loan_account_schema = {
     'type': 'object',
     'properties': {

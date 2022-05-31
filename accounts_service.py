@@ -13,7 +13,10 @@ class AccountsManager:
         "firstName": "Vikrant",
         "lastName": "Vishwakarma",
         "emailId": "vikrant.vishwakarma07@gmail.com",
-        "contact": "9591297013"
+        "contact": "9591297013",
+        "loanAmount" : 100
+        "interestRate": 7.3
+        "loanStartDate": 2022-06-30
         :param user_data: dictionary
         :return: None
         """
@@ -52,3 +55,20 @@ class AccountsManager:
                 "principal": loan_bal["principal"],
                 "interest_accumulated": loan_bal["interest_accumulated"]
             }
+
+    def create_account_existing(self, acc_id, user_data):
+        """
+        This function accepts user_data dictionary containing following attributes:
+        "loanAmount" : 100
+        "interestRate": 7.3
+        "loanStartDate": 2022-06-30
+        :param acc_id: string
+        :param user_data: dictionary
+        :return: None
+        """
+        existing_ac = self.accounts_manager[acc_id]
+        existing_ac.create_loan_account(user_data["loanAmount"], user_data["interestRate"],
+                                        datetime.datetime.strptime(user_data["loanStartDate"], "%Y-%m-%d"))
+        resp_data = existing_ac.get_basic_info()
+        resp_data["accountId"] = acc_id
+        return resp_data
