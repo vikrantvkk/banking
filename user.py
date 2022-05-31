@@ -7,9 +7,9 @@ class User:
 
     def get_basic_info(self):
         return dict({
-            "first_name": self.f_name,
-            "last_name": self.l_name,
-            "email_id": self.email_id,
-            "contact_number": self.contact_num
+            "firstName": self.f_name,
+            "lastName": self.l_name,
+            "emailId": self.email_id,
+            "contact": self.contact_num
         }
         )
