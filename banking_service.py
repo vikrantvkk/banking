@@ -9,23 +9,10 @@ from flask import Flask, request, make_response
 from flask_expects_json import expects_json
 
 from accounts_service import AccountsManager
+from schema import create_loan_account_schema
 
 banking_service = Flask(__name__)
 accounts_service = None
-
-create_loan_account_schema = {
-    'type': 'object',
-    'properties': {
-        'firstName': {'type': 'string'},
-        'lastName': {'type': 'string'},
-        'emailId': {'type': 'string', "pattern": "[^@]+@[^@]+\.[^@]"},
-        'contact': {'type': 'string'},
-        'loanAmount': {'type': 'number'},
-        'interestRate': {'type': 'number'},
-        'loanStartDate': {'type': 'string'}
-    },
-    'required': ['firstName', 'lastName', 'emailId', 'loanAmount', 'interestRate', 'loanStartDate']
-}
 
 
 @banking_service.route('/account/<account_id>/', methods=['GET'])
